@@ -293,6 +293,14 @@ public class Keyboard2 extends InputMethodService
     _keyeventhandler.started(info);
     setInputView(_keyboardView);
     
+    // Delay layout update to fix positioning issues on first switch
+    _keyboardView.post(new Runnable() {
+      @Override
+      public void run() {
+        updateSoftInputWindowLayoutParams();
+      }
+    });
+    
     Logs.debug_startup_input_view(info, _config);
   }
 
